@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Nav from "./(components)/Nav";
 import "./globals.css";
+import AuthProvider from "./(components)/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Learn - Next Auth",
@@ -14,10 +15,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-gray-100">
-        <Nav />
-        <div className="m-2">{children}</div>
-      </body>
+      <AuthProvider>
+        <body className="bg-gray-100">
+          <Nav />
+          <div className="m-2">{children}</div>
+        </body>
+      </AuthProvider>
     </html>
   );
 }
