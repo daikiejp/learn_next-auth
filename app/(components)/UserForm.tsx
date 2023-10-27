@@ -79,7 +79,7 @@ const UseForm = () => {
           value="Create User"
           className="bg-blue-300 hover:bg-blue-100 h-10 rounded"
         />
-        <p className="text-red-500">{errorMessage}</p>
+        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       </form>
     </>
   );
