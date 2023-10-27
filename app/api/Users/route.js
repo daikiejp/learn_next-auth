@@ -37,7 +37,7 @@ export async function POST(req) {
     });
     return NextResponse.json({ message: "User Created." }, { status: 201 });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return NextResponse.json({ message: "Error: " + err }, { status: 500 });
   }
 }

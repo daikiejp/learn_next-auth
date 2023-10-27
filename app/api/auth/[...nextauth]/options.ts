@@ -1,11 +1,16 @@
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
+
+const prisma = new PrismaClient();
 
 export const options = {
   providers: [
     GithubProvider({
       profile(profile) {
-        console.log("Profile Github: ", profile);
+        // console.log("Profile Github: ", profile);
 
         let userRole = "Github User";
         if (profile?.email == process.env.ADMIN_EMAIL) {
@@ -22,7 +27,7 @@ export const options = {
     }),
     GoogleProvider({
       profile(profile) {
-        console.log("Profile Profile: ", profile);
+        // console.log("Profile Profile: ", profile);
 
         let userRole = "Google User";
         // if (profile?.email == process.env.ADMIN_EMAIL) {
@@ -37,6 +42,49 @@ export const options = {
       },
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
+    }),
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: {
+          label: "Email:",
+          type: "text",
+          placeholder: "your@email.com",
+        },
+        password: {
+          label: "Password:",
+          type: "password",
+          placeholder: "your-password",
+        },
+      },
+      async authorize(credentials) {
+        try {
+          const foundUser = await prisma.user.findUnique({
+            where: {
+              email: credentials.email,
+            },
+          });
+
+          if (foundUser) {
+            // console.log("User Exists");
+            const match = await bcrypt.compare(
+              credentials.password,
+              foundUser.password
+            );
+
+            if (match) {
+              // console.log("Good pass");
+              delete foundUser.password;
+
+              foundUser["role"] = "Unverified email";
+              return foundUser;
+            }
+          }
+        } catch (error) {
+          // console.log(error);
+        }
+        return null;
+      },
     }),
   ],
   callbacks: {
