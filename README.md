@@ -18,6 +18,8 @@ This is a project tutorial based on the [freeCodeCamp Channel](https://www.youtu
 1. Create an OAuth App for **Github** here: [https://github.com/settings/developers](https://github.com/settings/developers) and copy the `Client ID` and `Client Secret` in a safe place.
 2. For **Google** Login go to: [https://console.cloud.google.com/](https://console.cloud.google.com/) then `Api & Services`, and `Credentials`, then click `Create OAuth client ID` and select `Web application` put your localhost redirect URIs and continue like in the video.
 3. Create an account in [mongodb.com](mongodb.com) follow the instructions like in the video and copy the connection url. In addition at the end of the url you need add the name of your database like this: `mongodb://<USER>:<PASSWORD>@XXX.mongo.net/<YOUR-DATABASE-NAME-HERE>`
+4. Generate your own `NEXTAUTH_SECRET` env variable with `openssl rand -base64 32` in the console.
+5. Add your Github Email into `ADMIN_EMAIL` env variable in order to create new users.
 
 > Note: For Google OAuth you must need create a Project before create a `Oauth App` just create a project and follow the instructions.
 

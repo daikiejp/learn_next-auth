@@ -1,5 +1,6 @@
 # "Next.js 認証 - AuthJS / NextAuth を使用した役割ベースのセキュリティ"
 
+[Github Repo]https://github.com/daikiejp/learn_next-auth/
 [[English version]](https://github.com/daikiejp/learn_next-auth/blob/master/README.md)
 
 > ごめんなさい、翻訳が不十分です。翻訳機と ChatGPT を使用しています。数か月後にはもっと日本語が上達し、アイデアをより良く表現できるようになることを期待しています。
@@ -22,6 +23,8 @@
 1. ここで **Github** 用の OAuth App を作成する： [https://github.com/settings/developers](https://github.com/settings/developers) と `Client ID` と `Client Secret` を安全な場所にコピーしてください。
 2. **Google** ログインの場合は、以下にアクセスしてください： [https://console.cloud.google.com/](https://console.cloud.google.com/)にアクセスし、`Api & Services`、`Credentials`の順にクリックし、`OAuthクライアントIDを作成`をクリックし、`Webアプリケーション`を選択し、ローカルホストのリダイレクト URI を入力し、ビデオのように続行します。
 3. [mongodb.com](mongodb.com)でアカウントを作成し、ビデオの指示に従って接続 URL をコピーします。接続 URL の最後にはデータベースの名前を追加してください： mongodb://<USER>:<PASSWORD>@XXX.mongo.net/<YOUR-DATABASE-NAME-HERE>`のようにします。
+4. コンソールで openssl rand -base64 32 を使用して、独自の`NEXTAUTH_SECRET` 環境変数を生成してください。
+5. 新しいユーザーを作成するために、`ADMIN_EMAIL` 環境変数に GitHub のメールアドレスを追加してください。
 
 > 注意: Google OAuth の場合、`Oauth App` を作成する前にプロジェクトを作成する必要があります。
 
