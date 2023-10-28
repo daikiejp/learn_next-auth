@@ -9,6 +9,7 @@ This is a project tutorial based on the [freeCodeCamp Channel](https://www.youtu
 - Use NextJS 14
 - NexAuth Providers (Github and Google)
 - NextAuth Credentials (Email and Password with mongoDB)
+- Roles support
 - Prisma ORM support
 - TypeScript support
 - Minor fixes and Tailwind CSS changes

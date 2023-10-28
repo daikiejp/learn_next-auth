@@ -14,6 +14,7 @@
 - NextJS 14 を使う
 - NexAuth プロバイダ（Github と Google）
 - NextAuth クレデンシャル（mongoDB を使ったメールアドレスとパスワード）
+- ロールのサポート
 - Prisma ORM のサポート
 - TypeScript のサポート
 - マイナーな修正と Tailwind CSS の変更
