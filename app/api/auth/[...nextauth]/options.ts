@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 export const options = {
   providers: [
     GithubProvider({
-      profile(profile) {
+      profile(profile: any) {
         // console.log("Profile Github: ", profile);
 
         let userRole = "Github User";
@@ -22,8 +22,8 @@ export const options = {
           role: userRole,
         };
       },
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string,
     }),
     GoogleProvider({
       profile(profile) {
@@ -40,8 +40,8 @@ export const options = {
           role: userRole,
         };
       },
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
+      clientId: process.env.GOOGLE_ID as string,
+      clientSecret: process.env.GOOGLE_SECRET as string,
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -59,16 +59,16 @@ export const options = {
       },
       async authorize(credentials) {
         try {
-          const foundUser = await prisma.user.findUnique({
+          const foundUser: any = await prisma.user.findUnique({
             where: {
-              email: credentials.email,
+              email: credentials?.email,
             },
           });
 
           if (foundUser) {
             // console.log("User Exists");
             const match = await bcrypt.compare(
-              credentials.password,
+              credentials?.password as string,
               foundUser.password
             );
 
@@ -88,11 +88,11 @@ export const options = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: any; user: any }) {
       if (user) token.role = user.role;
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: { session: any; token: any }) {
       if (session?.user) session.user.role = token.role;
       return session;
     },

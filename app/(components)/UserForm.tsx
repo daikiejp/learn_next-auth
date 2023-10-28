@@ -1,29 +1,33 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 
 const UseForm = () => {
   const router = useRouter();
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    const name = e.target.name;
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = (e.target as HTMLInputElement).value;
+    const name = (e.target as HTMLInputElement).name;
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage("");
     const res = await fetch("/api/Users", {
       method: "POST",
       body: JSON.stringify({ formData }),
-      contenType: "application/json",
+      //   "content-type": "application/json",
     });
 
     if (!res.ok) {
